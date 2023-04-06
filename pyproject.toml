@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nfc-websocket"
+version = "1.0.0"
+description = "A webserver that connects to a acr122u and exposes it over websocket"
+readme = "README.md"
+authors = [{ name = "Robert van Dijk", email = "contact@robertvandijk.nl" }]
+license = { file = "pb" }
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["nfc", "acr", "acr122u", "websocket", "web"]
+dependencies = [
+    'flask',
+    'gevent-websocket',
+    'eventlet',
+    'gunicorn',
+    'flask-socketio',
+    'py-acr122u',
+]
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+dev = ["black", "bumpver", "isort", "pip-tools"]
+
+[project.urls]
+Homepage = "https://github.com/robertdijk/nfc-websocket"
+
+[tool.bumpver]
+current_version = "1.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "Bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"',
+]
+"src/nfc_websocket/__init__.py" = ["{version}"]

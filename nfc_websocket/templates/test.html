@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>nfc_websocket demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+
+<main>
+    <div class="container m-5">
+        <div class="row mb-5">
+            <h1>NFC Websocket Demo</h1>
+        </div>
+        <div class="row mb-3">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group me-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-primary" id="start_polling">Start polling</button>
+                    <button type="button" class="btn btn-primary" id="stop_polling">Stop polling</button>
+                </div>
+                <div class="btn-group me-2" role="group" aria-label="Second group">
+                    <button type="button" class="btn btn-success" id="succes_status">Success status</button>
+                </div>
+                <div class="btn-group" role="group" aria-label="Third group">
+                    <button type="button" class="btn btn-danger" id="error_status">Error status</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col overflow-auto bg-light p-2 ms-2" style="height: 200px;" id="uuid_box">
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+
+<script type="module">
+    import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+
+    const socket = io();
+
+    var start_polling_button = document.getElementById('start_polling');
+    var stop_polling_button = document.getElementById('stop_polling');
+    var succes_status_button = document.getElementById('succes_status');
+    var error_status_button = document.getElementById('error_status');
+    var uuid_box = document.getElementById('uuid_box');
+
+    start_polling_button.addEventListener("click", function () {
+        socket.emit('polling', 'start');
+    });
+
+    stop_polling_button.addEventListener("click", function () {
+        socket.emit('polling', 'stop');
+    });
+
+    succes_status_button.addEventListener("click", function () {
+        console.log("click")
+        socket.emit('status_indicator', 'confirm');
+    });
+
+    error_status_button.addEventListener("click", function () {
+        socket.emit('status_indicator', 'error');
+    });
+
+    socket.on('card_scanned', function (msg) {
+        var item = document.createElement('code');
+        console.log(msg);
+
+        var s = '[';
+        for (const number of msg.uuid) {
+            s += '0x'
+            s += number.toString(16).padStart(2, '0');
+            s += ', ';
+        }
+        s = s.slice(0, -2);
+        s += ']';
+        item.textContent = s;
+        uuid_box.insertBefore(document.createElement('br'), uuid_box.firstChild);
+        uuid_box.insertBefore(item, uuid_box.firstChild);
+    });
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+</html>
