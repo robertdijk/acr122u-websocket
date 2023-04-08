@@ -17,16 +17,15 @@ classifiers = [
 keywords = ["nfc", "acr", "acr122u", "websocket", "web"]
 dependencies = [
     'flask',
-    'gevent-websocket',
-    'eventlet',
-    'gunicorn',
     'flask-socketio',
     'py-acr122u',
 ]
 requires-python = ">=3.11"
 
 [project.optional-dependencies]
-dev = ["black", "bumpver", "isort", "pip-tools"]
+dev = [
+    "bumpver",
+]
 
 [project.urls]
 Homepage = "https://github.com/robertdijk/acr122u-websocket"
