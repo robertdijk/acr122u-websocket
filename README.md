@@ -21,3 +21,11 @@ You can install this package from [PyPI](https://pypi.org/project/acr122u-websoc
 ```shell
 pip install acr122u-websocket
 ```
+
+## Usage
+
+1. Connect the ACR122U reader to the computer
+2. Run the app
+    ```shell
+    python -m acr122u_websocket.app
+    ```
