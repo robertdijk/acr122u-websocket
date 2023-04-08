@@ -8,6 +8,13 @@
 
 This project enables you to connect an usb ACR122U NFC card scanner to a computer and access it using websocket.
 
+## Features
+
+- Read UUID from nfc cards and send them over websocket.
+- Websocket messages to start and stop the polling for cards.
+- Websocket messages to give a confirmation or error beep and light signal.
+- Automatically reconnect to the reader when interrupted.
+
 ## Installation
 You can install this package from [PyPI](https://pypi.org/project/acr122u-websocket/).
 
