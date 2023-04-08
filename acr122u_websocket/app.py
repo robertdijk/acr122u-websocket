@@ -1,22 +1,22 @@
 import logging
+import secrets
 from typing import List
 
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 
-from .reader_helpers import CardReaderConnector, CardReaderPoller
 from .my_reader import ReaderContainer
+from .reader_helpers import CardReaderConnector, CardReaderPoller
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='threading')
 
 card_reader_container = ReaderContainer()
 
 card_reader_connector = CardReaderConnector(card_reader_container)
 card_reader_connector.daemon = True
-card_reader_connector.start()
 
 
 def emit_uuid(uuid: List[int]):
@@ -25,7 +25,6 @@ def emit_uuid(uuid: List[int]):
 
 card_reader_poller = CardReaderPoller(card_reader_container, emit_uuid)
 card_reader_poller.daemon = True
-card_reader_poller.start()
 
 
 @app.route('/test')
@@ -77,5 +76,10 @@ def set_status_indicator(status):
         emit('polling', 'not a valid status')
 
 
+card_reader_connector.start()
+card_reader_poller.start()
+
 if __name__ == '__main__':
-    socketio.run(app)
+    app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
+
+    socketio.run(app, host='0.0.0.0', port=8080)
