@@ -9,8 +9,13 @@ from .my_reader import ReaderContainer
 from .reader_helpers import CardReaderConnector, CardReaderPoller
 
 app = Flask(__name__)
-logging.basicConfig(level=logging.DEBUG)
-app.config['SECRET_KEY'] = 'secret!'
+
+if app.debug:
+    logging.basicConfig(level=logging.DEBUG)
+else:
+    app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
+    logging.basicConfig(level=logging.INFO)
+
 socketio = SocketIO(app, async_mode='threading')
 
 card_reader_container = ReaderContainer()
@@ -80,6 +85,4 @@ card_reader_connector.start()
 card_reader_poller.start()
 
 if __name__ == '__main__':
-    app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
-
     socketio.run(app, host='0.0.0.0', port=8080)
