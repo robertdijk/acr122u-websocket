@@ -43,4 +43,4 @@ push = false
     'current_version = "{version}"',
     'version = "{version}"',
 ]
-"src/acr122u_websocket/__init__.py" = ["{version}"]
+"acr122u_websocket/__init__.py" = ["{version}"]
