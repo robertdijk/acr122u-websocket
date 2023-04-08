@@ -2,7 +2,7 @@ import threading
 from time import sleep
 from typing import Callable, List
 
-from nfc_websocket.my_reader import MyReader, ReaderContainer
+from acr122u_websocket.my_reader import MyReader, ReaderContainer
 
 
 class NoCardReaderConnected(Exception):

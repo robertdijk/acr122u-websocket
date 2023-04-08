@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nfc-websocket"
+name = "acr122u-websocket"
 version = "1.0.0"
 description = "A webserver that connects to a acr122u and exposes it over websocket"
 readme = "README.md"
@@ -29,7 +29,7 @@ requires-python = ">=3.11"
 dev = ["black", "bumpver", "isort", "pip-tools"]
 
 [project.urls]
-Homepage = "https://github.com/robertdijk/nfc-websocket"
+Homepage = "https://github.com/robertdijk/acr122u-websocket"
 
 [tool.bumpver]
 current_version = "1.0.0"
@@ -44,4 +44,4 @@ push = false
     'current_version = "{version}"',
     'version = "{version}"',
 ]
-"src/nfc_websocket/__init__.py" = ["{version}"]
+"src/acr122u_websocket/__init__.py" = ["{version}"]
