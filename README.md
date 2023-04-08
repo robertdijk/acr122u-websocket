@@ -29,3 +29,5 @@ pip install acr122u-websocket
     ```shell
     python -m acr122u_websocket.app
     ```
+
+## API
