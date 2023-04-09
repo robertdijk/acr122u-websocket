@@ -16,7 +16,7 @@ else:
     app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
     logging.basicConfig(level=logging.INFO)
 
-socketio = SocketIO(app, async_mode='threading')
+socketio = SocketIO(app, async_mode='threading', cors_allowed_origins="*")
 
 card_reader_container = ReaderContainer()
 
