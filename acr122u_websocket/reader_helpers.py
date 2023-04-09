@@ -89,3 +89,6 @@ class CardReaderPoller(threading.Thread):
 
         self._current_uuid = None
         self._last_uuid = None
+
+    def is_polling(self) -> bool:
+        return self._polling
