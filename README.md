@@ -35,9 +35,9 @@ pip install acr122u-websocket
 
 You can connect to the webserver using [Socket.IO](https://socket.io).
 These are the available events:
----
 
-### `polling`
+<details>
+<summary><h3><code>polling</code></h3></summary>
 
 Start or stop the polling.
 
@@ -53,9 +53,10 @@ Start or stop the polling.
 - `polling stopped` if the polling has (already) stopped.
 - `invalid message` if the message is neither `start` nor `stop`.
 
----
+</details>
 
-### `status indicator`
+<details>
+<summary><h3><code>status indicator</code></h3></summary>
 
 Set the status indicator.
 
@@ -71,9 +72,10 @@ Set the status indicator.
 - `error status set` if the error beep and light have been show
 - `invalid message` if the message is neither `confirm` nor `error`
 
----
+</details>
 
-### `card scanned`
+<details>
+<summary><h3><code>card scanned</code></h3></summary>
 
 Broadcasts when a card has been scanned
 
@@ -81,7 +83,7 @@ Broadcasts when a card has been scanned
 
 - `{"uuid": [..]}` - An object containing the uuid in the form of a list of integers.
 
----
+</details>
 
 ## Example
 
