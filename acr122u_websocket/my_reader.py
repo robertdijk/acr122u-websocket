@@ -36,13 +36,13 @@ class MyReader(Reader):
             if len(data) < 5:
                 return None
             length = data[9]
-            uuid = data[10: 10 + length]
+            uuid = data[10 : 10 + length]
             return uuid
         except smartcard.Exceptions.CardConnectionException:
             return None
 
 
 @dataclasses.dataclass
-class ReaderContainer():
+class ReaderContainer:
     lock: threading.Lock = dataclasses.field(default_factory=threading.Lock)
     reader: Optional[MyReader] = None

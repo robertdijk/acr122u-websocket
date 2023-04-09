@@ -36,7 +36,11 @@ class CardReaderConnector(threading.Thread):
 
 
 class CardReaderPoller(threading.Thread):
-    def __init__(self, card_reader_container: ReaderContainer, uuid_callback: Callable[[List[int]], None]):
+    def __init__(
+        self,
+        card_reader_container: ReaderContainer,
+        uuid_callback: Callable[[List[int]], None],
+    ):
         super().__init__()
         self._card_reader_container = card_reader_container
         self._uuid_callback = uuid_callback
@@ -50,9 +54,14 @@ class CardReaderPoller(threading.Thread):
                 if self._polling:
                     try:
                         with self._card_reader_container.lock:
-                            self._current_uuid = self._card_reader_container.reader.read_uuid()
+                            self._current_uuid = (
+                                self._card_reader_container.reader.read_uuid()
+                            )
 
-                            if self._current_uuid is not None and self._current_uuid != self._last_uuid:
+                            if (
+                                self._current_uuid is not None
+                                and self._current_uuid != self._last_uuid
+                            ):
                                 self._card_reader_container.reader.scanned_beep()
                                 self._uuid_callback(self._current_uuid)
 
