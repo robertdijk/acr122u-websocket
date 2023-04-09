@@ -6,16 +6,17 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/acr122u-websocket)](https://pypi.org/project/acr122u-websocket/)
 [![PyPI - Wheel](https://img.shields.io/pypi/wheel/acr122u-websocket)](https://pypi.org/project/acr122u-websocket/)
 
-This project enables you to connect an usb ACR122U NFC card scanner to a computer and access it using websocket.
+This project enables you to connect an usb ACR122U NFC card scanner to a computer and access it using Socket.IO.
 
 ## Features
 
-- Read UUID from nfc cards and send them over websocket.
+- Read UUID from nfc cards and send them over Socket.IO.
 - Websocket messages to start and stop the polling for cards.
 - Websocket messages to give a confirmation or error beep and light signal.
 - Automatically reconnect to the reader when interrupted.
 
 ## Installation
+
 You can install this package from [PyPI](https://pypi.org/project/acr122u-websocket/).
 
 ```shell
@@ -31,3 +32,50 @@ pip install acr122u-websocket
     ```
 
 ## API
+
+You can connect to the webserver using [Socket.IO](https://socket.io).
+These are the available events:
+
+### `polling`
+
+Start or stop the polling.
+
+#### Request
+
+- `start` to start the polling.
+- `stop` to stop the polling.
+
+#### Reply
+
+- `no card reader connected` if no card reader is connected.
+- `polling started` if the polling has (already) started.
+- `polling stopped` if the polling has (already) stopped.
+- `invalid message` if the message is neither `start` nor `stop`.
+
+### `status indicator`
+
+Set the status indicator.
+
+#### Request
+
+- `confim` to play the confirming status.
+- `error` to play the error status.
+
+#### Reply
+
+- `no card reader connected` if no card reader is connected
+- `confirm status set` if the confirm beep and light have been show
+- `error status set` if the error beep and light have been show
+- `invalid message` if the message is neither `confirm` nor `error`
+
+### `card scanned`
+
+Broadcasts when a card has been scanned
+
+#### Broadcast
+
+- `{"uuid": [..]}` - An object containing the uuid in the form of a list of integers.
+
+## Example
+
+See an example webpage at [test.html](acr122u_websocket/templates/test.html).
