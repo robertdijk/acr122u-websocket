@@ -88,3 +88,5 @@ Broadcasts when a card has been scanned
 ## Example
 
 See an example webpage at [test.html](acr122u_websocket/templates/test.html).
+
+This page is also served on [`http://localhost:8080/test`](http://localhost:8080/test).
