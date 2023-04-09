@@ -25,6 +25,10 @@ card_reader_connector.daemon = True
 
 
 def emit_uuid(uuid: List[int]):
+    """
+    Broadcast a UUID to all clients.
+    :param uuid: List[int]: The UUID to emit
+    """
     socketio.emit("card_scanned", {"uuid": uuid})
 
 
@@ -34,6 +38,9 @@ card_reader_poller.daemon = True
 
 @app.route("/test")
 def test_page():
+    """
+    Serve the test page
+    """
     return render_template("test.html")
 
 
@@ -49,6 +56,16 @@ def disconnect():
 
 @socketio.on("polling")
 def polling(start_stop):
+    """
+    Start or stop the polling.
+    It replies with one of the following messages:
+        - `no card reader connected` if no card reader is connected
+        - `polling started` if the polling has (already) started
+        - `polling stopped` if the polling has (already) stopped
+        - `invalid message` if the message is neither `start` nor `stop`
+
+    :param start_stop: The message, telling us to `start` or `stop` polling.
+    """
     if card_reader_container.reader is None:
         emit("polling", "no card reader connected")
         return
@@ -60,11 +77,23 @@ def polling(start_stop):
         card_reader_poller.stop_polling()
         emit("polling", "polling stopped")
     else:
-        emit("polling", "not a valid message")
+        emit("polling", "invalid message")
 
 
 @socketio.on("status indicator")
 def set_status_indicator(status):
+    """
+    Set the status indicator.
+    It replies with one of the following messages:
+        - `no card reader connected` if no card reader is connected
+        - `confirm status set` if the confirm beep and light have been show
+        - `error status set` if the error beep and light have been show
+        - `invalid message` if the message is neither `confirm` nor `error`
+
+    :param status: The message, telling us the status you want to show.
+        This can be either `confim` of `error`
+
+    """
     if card_reader_container.reader is None:
         emit("status indicator", "no card reader connected")
         return
