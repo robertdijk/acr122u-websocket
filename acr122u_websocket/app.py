@@ -29,7 +29,7 @@ def emit_uuid(uuid: List[int]):
     Broadcast a UUID to all clients.
     :param uuid: List[int]: The UUID to emit
     """
-    socketio.emit("card_scanned", {"uuid": uuid})
+    socketio.emit("card scanned", {"uuid": uuid})
 
 
 card_reader_poller = CardReaderPoller(card_reader_container, emit_uuid)

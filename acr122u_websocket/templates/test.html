@@ -65,7 +65,7 @@
         socket.emit('status indicator', 'error');
     });
 
-    socket.on('card_scanned', function (msg) {
+    socket.on('card scanned', function (msg) {
         var item = document.createElement('code');
         console.log(msg);
 
