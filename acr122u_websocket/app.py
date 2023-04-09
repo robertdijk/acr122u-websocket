@@ -63,7 +63,7 @@ def polling(start_stop):
         emit('polling', 'not a valid message')
 
 
-@socketio.on('status_indicator')
+@socketio.on('status indicator')
 def set_status_indicator(status):
     if card_reader_container.reader is None:
         emit('status indicator', 'no card reader connected')
@@ -78,7 +78,7 @@ def set_status_indicator(status):
             card_reader_container.reader.error_beep()
         emit('status indicator', 'error status set')
     else:
-        emit('polling', 'not a valid status')
+        emit('status indicator', 'not a valid status')
 
 
 card_reader_connector.start()

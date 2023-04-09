@@ -58,11 +58,11 @@
     });
 
     succes_status_button.addEventListener("click", function () {
-        socket.emit('status_indicator', 'confirm');
+        socket.emit('status indicator', 'confirm');
     });
 
     error_status_button.addEventListener("click", function () {
-        socket.emit('status_indicator', 'error');
+        socket.emit('status indicator', 'error');
     });
 
     socket.on('card_scanned', function (msg) {
